@@ -134,6 +134,7 @@ function sendMessage(status) {
   });
 }
 
+//function to run when exiting program
 function unexportOnClose() { //function to run when exiting program
   LED.writeSync(0); // Turn LED off
   LED.unexport(); // Unexport LED GPIO to free resources
