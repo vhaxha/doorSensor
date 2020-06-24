@@ -33,8 +33,10 @@ async function fMain() {
     
     // Parameter Store
     const awsParamStore = require( 'aws-param-store' );
-    //this command is sync, NOT async
+    console.log("awsParamStore");
+    console.log(awsParamStore);    //this command is sync, NOT async
     let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: myRegion});
+    console.log(JSON.stringify(parameter));
     arn_sns = parameter.Value;
     console.log(`SNS topic ARN ${arn_sns}`);
     // Parameter Store end
