@@ -107,7 +107,7 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
   
   var params = {
     Item: {
-     "Serial": globalSerial,
+     "serial": globalSerial,
      "date_time": seconds,
      "status": status     
     },     
