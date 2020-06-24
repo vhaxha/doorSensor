@@ -33,15 +33,15 @@ async function fMain() {
     
     // Parameter Store
     const awsParamStore = require( 'aws-param-store' );
-    console.log("awsParamStore");
-    console.log(awsParamStore);    //this command is sync, NOT async
+    //this command is sync, NOT async
     let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: myRegion});
-    console.log(JSON.stringify(parameter));
     arn_sns = parameter.Value;
     console.log(`SNS topic ARN ${arn_sns}`);
     // Parameter Store end
     
     var ButtonStatus = pushButton.readSync();
+    console.log("Before STATUS");
+    console.log("==================================");
     var status;
     if (ButtonStatus == 0) {
       LED.write(1);
@@ -50,6 +50,7 @@ async function fMain() {
       LED.write(0);
       status = "Closed!"
     }
+      console.log("writeToDynamoDB(status);");
       writeToDynamoDB(status);
       // sendMessage(status);
   } catch (error) {
@@ -78,7 +79,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
 
 async function fnSerial() { // return Pi Serial Number
   const { stdout, stderr } = await exec('cat /proc/cpuinfo | grep Serial');
-  console.log('stdout:', stdout);
+  // console.log('stdout:', stdout);
   var serialSplit = stdout.split(":");
   var serialOnly = serialSplit[1].trim();
   return serialOnly;
