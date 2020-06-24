@@ -15,44 +15,44 @@ var arn_sns; // arn of sns topic to send message to our phone
 fMain(); // main function
 
 async function fMain() {
-  try {  // try to execute
-    var d = new Date();
-    console.log("=================================");
-    console.log("=================================");
-    console.log(`doorSensor service is UP! -> ${d}`);
-    exec('gpio -g mode 13 down'); // enable pulldown resistor for GPIO 13
-    globalSerial = await fnSerial();  // get pi serial number
-    console.log(`Serial number: ${globalSerial}`);
-    var myRegion = await fnRegion();  // get AWS region from AWS configure
-    console.log(`Region ${myRegion}`);
-    var user = await fnUser();  // get linux user
-    console.log(`User: ${user}`);
+  // try {  // try to execute
+  //   var d = new Date();
+  //   console.log("=================================");
+  //   console.log("=================================");
+  //   console.log(`doorSensor service is UP! -> ${d}`);
+  //   exec('gpio -g mode 13 down'); // enable pulldown resistor for GPIO 13
+  //   globalSerial = await fnSerial();  // get pi serial number
+  //   console.log(`Serial number: ${globalSerial}`);
+  //   var myRegion = await fnRegion();  // get AWS region from AWS configure
+  //   console.log(`Region ${myRegion}`);
+  //   var user = await fnUser();  // get linux user
+  //   console.log(`User: ${user}`);
 
-    AWS.config.update({region: myRegion});
-    docClient = new AWS.DynamoDB.DocumentClient();  // client to use with dynamoDB
+  //   AWS.config.update({region: myRegion});
+  //   docClient = new AWS.DynamoDB.DocumentClient();  // client to use with dynamoDB
     
-    // Parameter Store
-    const awsParamStore = require( 'aws-param-store' );
-    //this command is sync, NOT async
-    let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: myRegion});
-    arn_sns = parameter.Value;
-    console.log(`SNS topic ARN ${arn_sns}`);
-    // Parameter Store end
+  //   // Parameter Store
+  //   const awsParamStore = require( 'aws-param-store' );
+  //   //this command is sync, NOT async
+  //   let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: myRegion});
+  //   arn_sns = parameter.Value;
+  //   console.log(`SNS topic ARN ${arn_sns}`);
+  //   // Parameter Store end
     
-    var ButtonStatus = pushButton.readSync();
-    var status;
-    if (ButtonStatus == 0) {
-      LED.write(1);
-      status = "Open!"
-    } else {
-      LED.write(0);
-      status = "Closed!"
-    }
-      writeToDynamoDB(status);
-      // sendMessage(status);
-  } catch (error) {
-    console.error(error);
-  }
+  //   var ButtonStatus = pushButton.readSync();
+  //   var status;
+  //   if (ButtonStatus == 0) {
+  //     LED.write(1);
+  //     status = "Open!"
+  //   } else {
+  //     LED.write(0);
+  //     status = "Closed!"
+  //   }
+  //     writeToDynamoDB(status);
+  //     // sendMessage(status);
+  // } catch (error) {
+  //   console.error(error);
+  // }
 }
 
 pushButton.watch(async function (err, value) { //Watch for hardware interrupts on pushButton GPIO, specify callback function
