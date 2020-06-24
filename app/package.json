@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.427.0",
-    "onoff": "^4.1.1",
-    "aws-param-store": "^2.1.0"
+    "aws-sdk": "^2.703.0",
+    "onoff": "^6.0.0",
+    "aws-param-store": "^3.2.0"
   }
 }
