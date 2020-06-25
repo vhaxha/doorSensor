@@ -125,19 +125,20 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
 }
 
 function sendMessage(status) {
-  var d = new Date();
-  var textmessage = new AWS.SNS({apiVersion: '2010-03-31'});
-  textmessage.publish({
-    Message: `Device ${globalSerial}: Door is:${status} on ${d}`,  /* required */
-    TopicArn: arn_sns
-  },
-    function(err,data) {
-      if (err) {
-        console.error(err, err.stack);
-        return;
-      }
-      console.log(data);    
-  });
+  console.log("Enter the function: sendMessage(status)");
+  // var d = new Date();
+  // var textmessage = new AWS.SNS({apiVersion: '2010-03-31'});
+  // textmessage.publish({
+  //   Message: `Device ${globalSerial}: Door is:${status} on ${d}`,  /* required */
+  //   TopicArn: arn_sns
+  // },
+  //   function(err,data) {
+  //     if (err) {
+  //       console.error(err, err.stack);
+  //       return;
+  //     }
+  //     console.log(data);    
+  // });
 }
 
 //function to run when exiting program
