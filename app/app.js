@@ -52,7 +52,7 @@ async function fMain() {
     }
       console.log("writeToDynamoDB(status);");
       writeToDynamoDB(status);
-      // sendMessage(status);
+      sendMessage(status);
   } catch (error) {
     console.error(error);
   }
@@ -73,7 +73,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  // sendMessage(status);
+  sendMessage(status);
 
 });
 
