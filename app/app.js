@@ -21,7 +21,7 @@ async function fMain() {
     var d = new Date();
     console.log("=================================");
     console.log("=================================");
-    console.log(sns);
+    console.log(`sns: ${sns}`);
     console.log(`doorSensor service is UP! -> ${d}`);
     exec('gpio -g mode 13 down'); // enable pulldown resistor for GPIO 13
     globalSerial = await fnSerial();  // get pi serial number
