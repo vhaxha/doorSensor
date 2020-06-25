@@ -11,14 +11,17 @@ const util = require('util');  // required to execute linux command
 const exec = util.promisify(require('child_process').exec); // execute linux command
 
 var arn_sns; // arn of sns topic to send message to our phone
+var sns = new AWS.SNS({correctClockSkew: true});
 
 fMain(); // main function
 
 async function fMain() {
+
   try {  // try to execute
     var d = new Date();
     console.log("=================================");
     console.log("=================================");
+    console.log(sns);
     console.log(`doorSensor service is UP! -> ${d}`);
     exec('gpio -g mode 13 down'); // enable pulldown resistor for GPIO 13
     globalSerial = await fnSerial();  // get pi serial number
